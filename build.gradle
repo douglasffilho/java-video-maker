@@ -1,0 +1,57 @@
+buildscript {
+    ext {
+        groovyAllVersion = '3.0.0-beta-3'
+        slf4jVersion = '1.7.28'
+        asmVersion = '3.3.1'
+    }
+    repositories {
+        mavenCentral()
+    }
+
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+group = 'br.com.douglasffilho'
+
+mainClassName = "${group}.javavideomaker.MainApplication"
+
+run {
+    args += ''
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java { srcDirs = [] }
+        groovy { srcDirs += ['src/main/java'] }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': "${mainClassName}"
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: "${groovyAllVersion}"
+    compile group: 'org.slf4j', name: 'slf4j-api', version: "${slf4jVersion}"
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: "${slf4jVersion}"
+    compile group: 'asm', name: 'asm', version: "${asmVersion}"
+}
