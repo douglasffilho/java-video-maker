@@ -1,15 +1,16 @@
 package br.com.douglasffilho.javavideomaker
 
+import br.com.douglasffilho.javavideomaker.logger.Logger
 
-import static br.com.douglasffilho.javavideomaker.logger.Logger.logInfo
 
 class MainApplication {
+	static Logger logger = Logger.INSTANCE(MainApplication)
 
 	static void main(String[] args) {
-		logInfo('MainApplication', 'main', 'Running')
+		logger.logInfo('main', 'Running')
 
 
 
-		logInfo('MainApplication', 'main' , 'Stopped')
+		logger.logInfo('main' , 'Stopped')
 	}
 }
